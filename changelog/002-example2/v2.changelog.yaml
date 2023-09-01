@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: v2-add-columns
+      author: user1
+      changes:
+        - addColumn:
+            tableName: actor1
+            columns:
+            - column:
+                name: address
+                type: varchar(50)

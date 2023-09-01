@@ -1,0 +1,39 @@
+# Use postgres/example user/password credentials
+version: '3.8'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: My-Complex-Pwd-123
+
+    container_name: liquibase-demo-db
+    ports:
+      - "1433:1433"
+    networks:
+      - my-network
+
+#  db:
+#    image: postgres
+#    restart: always
+#    environment:
+#      POSTGRES_DB: mydb
+#      POSTGRES_PASSWORD: admin
+#      POSTGRES_USER: admin
+#
+#  pgadmin:
+#    image: dpage/pgadmin4:6.18
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: admin@dms.it
+#      PGADMIN_DEFAULT_PASSWORD: admin
+#      PGADMIN_CONFIG_SERVER_MODE: 'False'
+#    ports:
+#      - "8877:80"
+#    volumes:
+#    - ./servers.json:/pgadmin4/servers.json
+#    restart: unless-stopped
+networks:
+  my-network:
+    name: liquibase-demo-network
+
