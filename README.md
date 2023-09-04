@@ -3,7 +3,13 @@
 This is a simple demo to show how liquibase works. It uses docker and docker-compose, so you don't
 need to install anything on your machine.
 
-The database is a SQL Server named db.
+The database is a SQL Server with the following configuration:
+- Database host: db
+- Port: 1433
+- Database name: master
+- User: sa
+- Password: My-Complex-Pwd-123
+
 
 # Prerequisites
 Docker and docker-compose installed on your machine.
@@ -12,7 +18,7 @@ Docker and docker-compose installed on your machine.
 ```
 docker-compose up -d
 ```
-This command will run on your machine an empty SQL Server named db.
+This command will run on your machine the empty SQL Server.
 
 ## Stop database
 
@@ -39,7 +45,7 @@ The flag `--rm` remove the container when you exit from it.
 docker run -it --network=liquibase-demo-network --rm --name=liquibase -v `pwd`/liquibase.properties:/liquibase/liquibase.properties -v `pwd`/changelog:/liquibase/changelog liquibase/liquibase bash
 ```
 
-## Example 1 - Create table and rollback it
+## Example 1 - Create table and roll back it
 
 This example shows how to create a table with 4 columns and a constraint for the primary key using the xml format. 
 Liquibase will convert the xml file into SQL and execute it on the database.
@@ -48,8 +54,8 @@ Liquibase will convert the xml file into SQL and execute it on the database.
 liquibase --changelog-file=./changelog/001-example1.changelog.xml update
 ```
 
-### Rollaback
-Now we want to rollback the last change. Since we used the xml format, liquibase is able to rollback the change.
+### Rollback
+Now we want to roll back the last change. Since we used the xml format, liquibase is able to rollback the change.
 
 ```
 liquibase --changelog-file=./changelog/001-example1.changelog.xml rollbackCount 1
